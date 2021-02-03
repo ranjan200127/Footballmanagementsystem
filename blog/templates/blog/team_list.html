@@ -1,0 +1,37 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    {% for post in posts %}
+    <nav class="navbar navbar-expand-lm bg-steel navbar-dark">
+  <!--<a class="navbar-brand" href="#"><img src="{{post.team_image.url}}" alt="Logo" style="width:50px;"></a>-->
+  <h2><a class="article-title1 text-center" href="{% url 'team-detail' post.team_id %}">{{ post.team_name }}</a></h2>
+</nav>
+<div class="container content-section">
+  
+  <div >
+  {{post.team_content}}
+</div>
+</div>
+
+    {% endfor %}
+    {% if is_paginated %}
+
+      {% if page_obj.has_previous %}
+        <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+      {% endif %}
+
+      {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+          <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+          <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+      {% endif %}
+
+    {% endif %}
+{% endblock content %}

@@ -1,0 +1,23 @@
+{% extends "blog/base.html" %}
+{%load mathfilters %}
+{% block content %}
+<nav class="navbar navbar-expand-lm bg-steel navbar-dark">
+  <a class="navbar-brand" href="#"><img src="{{object.team_image.url}}" alt="Logo" style="width:50px;"></a>
+  <h2 class="mr-2" href="{% url 'team-detail' object.team_id %}">{{ object.team_name }}</h2>
+</nav>
+  <div class="content-section">
+  <div class="row">
+    {% for player in players %}
+        <div class="col col-md-3 pb-3">
+            <div class="card pt-3 pl-4">
+              <p>{{player.user}}</p>
+                <img  class="rounded-circle article-img" style="width:75%" src="{{player.user.profile.image.url}}" alt="Logo">
+                <a href="{% url 'player-detail' player.user.id %}" class=" btn btn-outline-primary mr-4 mt-3 mb-2 pt-1 pb-1">See Profile</a>
+            </div>
+        </div>
+
+    {% endfor %}
+       
+    </div>
+</div>
+{% endblock content %}

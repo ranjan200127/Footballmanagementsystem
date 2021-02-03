@@ -1,0 +1,81 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<h3 class="mr-2">Today Matches ({{postcount}})</h3>
+{% for post in posts %}
+<div class="pb-1" style="background: #ffffff">
+  <div class="d-flex pb-1 pl-4 pr-4 pt-4" style="background: #ffffff">
+
+  <div class="pl-1 pt-2"><img class="rounded-circle article-img" src="{{ post.teama_id.team_image.url }}"></div>
+  <div class="pt-4 pr-1">{{post.teama_id}}</div>
+  <div class="pt-4">
+    {% for i,j in listt.items %}
+{% if i.match_id == post.match_id and post.match_time|time:"H:i:s" < timenow|time:"H:i:s" %}
+<h4 class="pl-2 pr-2" style="background: #ffffff">{{j.1}}-{{j.2}}</h4>
+{% endif %}
+{% endfor %}
+  </div>
+  <div class="pt-4 pl-2">{{post.teamb_id}}</div>
+  <div class="ml-auto pt-2"><img class="rounded-circle article-img" src="{{ post.teamb_id.team_image.url }}"></div>
+</div>
+  <hr>
+  {% if post.match_time|time:"H:i:s" > timenow|time:"H:i:s" %}
+    <h6 class="pl-4">Today | {{post.match_time}} </h6>
+  {% endif %}
+</div>
+<br>
+{% endfor %}
+{% if post2count %}
+<h3 class="mr-2">Upcoming Matches ({{post2count}})</h3>
+{% for posts1 in post2 %}
+  {% for post in posts1 %}
+  <div class="pb-1" style="background: #ffffff">
+  <div class="d-flex pb-1 pl-4 pr-4 pt-4" style="background: #ffffff">
+  <div class="pl-2 pt-2"><img class="rounded-circle article-img" src="{{ post.teama_id.team_image.url }}"></div>
+  <div class="pt-4 pr-4">{{post.teama_id}}</div>
+  <div class="pt-4">V/S</div>
+
+  <div class="pt-4 ml-auto">{{post.teamb_id}}</div>
+  <div class="ml-auto pt-2"><img class="rounded-circle article-img" src="{{ post.teamb_id.team_image.url }}"></div>
+</div>
+  <hr>
+  <h6 class="pl-4">{{post.match_date}} | {{post.match_time}} </h6>
+</div>
+<br>
+  {% endfor %}
+{% endfor %}
+{% endif %}
+{% if post1count %}
+<h3 class="mr-2">Previous Matches ({{post1count}})</h3>
+{% for posts1 in post1 %}
+  {% for post in posts1 %}
+  <div class="p-1" style="background: #ffffff">
+  <div class="d-flex pb-1 pl-4 pr-4 pt-4" style="background: #ffffff">
+  <div class="pl-1 pt-2"><img class="rounded-circle article-img" src="{{ post.teama_id.team_image.url }}"></div>
+  <div class="pt-4 pr-2">{{post.teama_id}}</div>
+  <div class="pt-4">
+    {% for i,j in listp.items %}
+{% if i.match_id == post.match_id %}
+<h4 class="pl-2 pr-2" style="background: #ffffff">{{j.1}}-{{j.2}}</h4>
+{% endif %}
+{% endfor %}
+  </div>
+  <div class="pt-4 pl-2">{{post.teamb_id}}</div>
+  <div class="ml-auto pt-2"><img class="rounded-circle article-img" src="{{ post.teamb_id.team_image.url }}"></div>
+</div>
+<hr>
+{% for i,j in listp.items %}
+
+{% if i.match_id == post.match_id %}
+{% if j.0 == "draw" %}
+<h6 class="pl-3" style="background: #ffffff">It was a draw match</h6>
+{% else %}
+<h6 class="pl-3" style="background: #ffffff">{{j.0}} won the match</h6>
+{% endif %}
+  {% endif %}
+    {% endfor %}
+  </div>
+  <br>
+  {% endfor %}
+{% endfor %}
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,33 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    <nav class="navbar navbar-expand-lm bg-steel navbar-dark">
+  <h2> <a href="{% url 'user-posts' object.user.username %}" class="article-title1 text-justify">{{ object.user.username }}</a></h2>
+  
+</nav>
+<div class="container content-section">
+<div class="row">
+<div class ="col-xl-3">
+  <img src="{{object.user.profile.image.url}}" alt="Logo" style="width:135px;height:140px">
+</div>
+<div class ="col-xl-9">
+  <h5>Country : {{object.nationality}}</h5>
+  <br>
+  <h5>DOB : {{object.date_of_birth|date:"d M Y" }}</h5>
+  <br>
+  <h5>Team : {{object.team_id.team_name}}</h5>
+  <br>
+  <h5>Goals : {{goal}}</h5>
+</div>
+</div>
+
+ <!-- <div >
+    {{object.content}}
+</div>-->
+<br>
+<div class="row">
+<div class="col-xl-12">{{object.content}}</div>
+</div>
+
+</div>
+
+{% endblock content %}
